@@ -11,8 +11,6 @@ description: |
 grade: stable
 confinement: strict
 license: GPL-3.0
-architectures:
-  - build-on: amd64
 
 parts:
   the-powder-toy:
