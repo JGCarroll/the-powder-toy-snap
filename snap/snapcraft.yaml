@@ -1,6 +1,6 @@
 name: the-powder-toy
-base: core18
-version: '95'
+base: core20
+version: '96.1'
 summary: An opensource 2D physics simulation game!
 description: |
   The Powder Toy is a free physics sandbox game, which simulates air pressure and velocity, heat, gravity and a countless number of interactions between different substances!
@@ -14,29 +14,27 @@ license: GPL-3.0
 architectures:
   - build-on: amd64
 
-
 parts:
   the-powder-toy:
-    plugin: scons
+    plugin: meson
     source: https://github.com/the-powder-toy/the-powder-toy.git
     source-type: git
-    source-tag: 'v95.0'
-    override-build: |
-      scons --release --sse --sse2 --no-warnings --no-install-prompt --output=$SNAPCRAFT_PART_INSTALL/bin/powder
+    source-tag: 'v96.1.349'
+    meson-parameters:
+      - -Dbuildtype=release
+      - -Dstatic=none
+      - -Dignore_updates=true
+      - -Dinstall_check=false
     build-packages:
+      - cmake
       - libsdl2-dev
-      - libbz2-dev
-      - zlib1g-dev
-      - liblua5.1-0-dev
+      - libluajit-5.1-dev
+      - libcurl4-dev
       - libfftw3-dev
-      - libcurl4-openssl-dev
     stage-packages:
       - libasn1-8-heimdal
-      - libasound2
-      - libasyncns0
       - libcurl4
       - libfftw3-single3
-      - libflac8
       - libgssapi3-heimdal
       - libhcrypto4-heimdal
       - libheimbase1-heimdal
@@ -44,57 +42,36 @@ parts:
       - libhx509-5-heimdal
       - libkrb5-26-heimdal
       - libldap-2.4-2
-      - liblua5.1-0
+      - libluajit-5.1-2
       - libnghttp2-14
-      - libogg0
-      - libpsl5
-      - libpulse0
       - libroken18-heimdal
       - librtmp1
       - libsasl2-2
       - libsdl2-2.0-0
-      - libsndfile1
-      - libsndio6.1
-      - libvorbis0a
-      - libvorbisenc2
-      - libwayland-client0
-      - libwayland-cursor0
-      - libwayland-egl1
+      - libssh-4
       - libwind0-heimdal
-      - libx11-6
-      - libxau6
-      - libxcb1
-      - libxcursor1
-      - libxdmcp6
-      - libxext6
-      - libxfixes3
-      - libxi6
-      - libxinerama1
-      - libxkbcommon0
-      - libxrandr2
-      - libxrender1
       - libxss1
-      - libxxf86vm1
-      - libglu1-mesa
-      - mesa-utils
-      - libgl1-mesa-glx
+      - libcurl3-gnutls
+      - libcurl3-nss
+      - libnspr4
+      - libnss3
 
-  utils:
-    plugin: dump
-    source: utils/
-    source-type: local
+    override-build: |
+      snapcraftctl build
+      mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin
+      cp ${SNAPCRAFT_PART_BUILD}/powder ${SNAPCRAFT_PART_INSTALL}/bin/powder  
 
   cleanup:
     plugin: nil
     build-snaps:
-      - core18
-      - gnome-3-28-1804
+      - core20
+      - gnome-3-38-2004
     override-prime: |
       set -eux
-      for snap in "core18" "gnome-3-28-1804"; do
+      for snap in "core20" "gnome-3-38-2004"; do
           cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
       done
-    after: [the-powder-toy, utils]
+    after: [the-powder-toy]
 
 layout:
   /usr/share/libdrm:
@@ -111,6 +88,4 @@ apps:
       - wayland
       - gsettings
       - opengl
-    extensions: [gnome-3-28]
-    command-chain:
-      - bin/home.sh
+    extensions: [gnome-3-38]
