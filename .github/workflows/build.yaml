@@ -29,7 +29,7 @@ jobs:
         name: 'the-powder-toy.snap'
         path: ${{ steps.build.outputs.snap}}
     - uses: snapcore/action-publish@v1
-    env:
+      env:
         SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
       with:
         snap: ${{ steps.build.outputs.snap }}
