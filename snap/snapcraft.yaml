@@ -1,6 +1,6 @@
 name: the-powder-toy
 base: core22
-version: '96.2'
+version: '97'
 summary: An opensource 2D physics simulation game!
 description: |
   The Powder Toy is a free physics sandbox game, which simulates air pressure and velocity, heat, gravity and a countless number of interactions between different substances!
@@ -17,7 +17,7 @@ parts:
     plugin: meson
     source: https://github.com/the-powder-toy/the-powder-toy.git
     source-type: git
-    source-commit: 4f8fc739ac7e9d0960033e697a72a296fb335b11 # 96.2.350
+    source-commit: 225293cc8030c4878d4d924eb4513b4a2e284f08 # 97.0.352
     meson-parameters:
       - -Dbuildtype=release
       - -Dstatic=none
@@ -30,12 +30,15 @@ parts:
       - libluajit-5.1-dev
       - libcurl4-openssl-dev
       - libfftw3-dev
+      - libbz2-dev
+      - libjsoncpp-dev
     stage-packages:
       - libsdl2-2.0-0
       - libxss1
       - libdecor-0-0
       - libfftw3-3
       - libluajit-5.1-2
+      - libjsoncpp25
     override-build: |
       craftctl default
       mkdir -p ${CRAFT_PART_INSTALL}/bin
