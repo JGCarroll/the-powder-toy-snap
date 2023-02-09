@@ -1,5 +1,5 @@
 name: the-powder-toy
-base: core20
+base: core22
 version: '96.2'
 summary: An opensource 2D physics simulation game!
 description: |
@@ -24,56 +24,22 @@ parts:
       - -Dignore_updates=true
       - -Dinstall_check=false
     build-packages:
+      - build-essential
       - cmake
       - libsdl2-dev
       - libluajit-5.1-dev
-      - libcurl4-dev
+      - libcurl4-openssl-dev
       - libfftw3-dev
     stage-packages:
-      - libasn1-8-heimdal
-      - libcurl4
-      - libfftw3-single3
-      - libgssapi3-heimdal
-      - libhcrypto4-heimdal
-      - libheimbase1-heimdal
-      - libheimntlm0-heimdal
-      - libhx509-5-heimdal
-      - libkrb5-26-heimdal
-      - libldap-2.4-2
-      - libluajit-5.1-2
-      - libnghttp2-14
-      - libroken18-heimdal
-      - librtmp1
-      - libsasl2-2
       - libsdl2-2.0-0
-      - libssh-4
-      - libwind0-heimdal
       - libxss1
-      - libcurl3-gnutls
-      - libcurl3-nss
-      - libnspr4
-      - libnss3
-
+      - libdecor-0-0
+      - libfftw3-3
+      - libluajit-5.1-2
     override-build: |
-      snapcraftctl build
-      mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin
-      cp ${SNAPCRAFT_PART_BUILD}/powder ${SNAPCRAFT_PART_INSTALL}/bin/powder  
-
-  cleanup:
-    plugin: nil
-    build-snaps:
-      - core20
-      - gnome-3-38-2004
-    override-prime: |
-      set -eux
-      for snap in "core20" "gnome-3-38-2004"; do
-          cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
-      done
-    after: [the-powder-toy]
-
-layout:
-  /usr/share/libdrm:
-    bind: $SNAP/usr/share/libdrm
+      craftctl default
+      mkdir -p ${CRAFT_PART_INSTALL}/bin
+      cp ${CRAFT_PART_BUILD}/powder ${CRAFT_PART_INSTALL}/bin/powder
 
 apps:
   the-powder-toy:
@@ -86,4 +52,4 @@ apps:
       - wayland
       - gsettings
       - opengl
-    extensions: [gnome-3-38]
+    extensions: [gnome]
