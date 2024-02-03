@@ -48,11 +48,5 @@ apps:
   the-powder-toy:
     command: bin/powder
     plugs:
-      - desktop
-      - desktop-legacy
       - network
-      - x11
-      - wayland
-      - gsettings
-      - opengl
     extensions: [gnome]
