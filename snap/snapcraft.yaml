@@ -42,6 +42,19 @@ parts:
       - libluajit-5.1-2
       - libsamplerate0
 
+  cleanup:
+    plugin: nil
+    build-snaps:
+      - core24
+      - gnome-46-2404
+      - mesa-2404
+    override-prime: |
+      set -eux
+      for snap in "core24" "gnome-46-2404" "mesa-2404"; do
+          cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
+      done
+    after: [the-powder-toy]
+
 apps:
   the-powder-toy:
     command: bin/powder
