@@ -17,7 +17,7 @@ parts:
     plugin: meson
     source: https://github.com/the-powder-toy/the-powder-toy.git
     source-type: git
-    source-commit: 1b900031f6943c8667705e4992e0bb2f3f131ce4 # v99.2.382
+    source-commit: 53a1f8d8bc14716c17736671db106cb535b2c6a5 # v99.3.384
     meson-parameters:
       - -Dbuildtype=release
       - -Dstatic=none
