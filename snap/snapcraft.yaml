@@ -1,6 +1,6 @@
 name: the-powder-toy
 base: core24
-version: 'v99.5.394'
+version: 'v100.0.399'
 summary: An opensource 2D physics simulation game!
 description: |
   The Powder Toy is a free physics sandbox game, which simulates air pressure and velocity, heat, gravity and a countless number of interactions between different substances!
@@ -17,7 +17,7 @@ parts:
     plugin: meson
     source: https://github.com/the-powder-toy/the-powder-toy.git
     source-type: git
-    source-commit: b1d0102c7f126d55c49c6570b47978b11205da80 #99.5.394
+    source-commit: 9c94feba3ed5eaa75a819ac000c0d29e4ce92570 # 100.0.399
     meson-parameters:
       - -Dbuildtype=release
       - -Dstatic=none
